@@ -149,8 +149,16 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            aspect-ratio: 1;
         }
 
+        @media (min-width: 1200px) {
+            #overlay-content {
+                max-width: 70vw;
+                max-height: 70vh;
+            }
+        }
+        
         #overlay-content img,
         #overlay-content svg {
             max-width: 100%;
@@ -198,7 +206,7 @@
             <a href="https://github.com/iilei" target="_blank">GitHub</a>
             <a href="https://www.flickr.com/people/iilei/" target="_blank">Flickr</a>
             <a href="/pubkey-0F50EA12D4E2AB1D.asc" download>PGP Public Key</a>
-            <a href="#" onclick="openVCardOverlay(event)">Contact</a>
+            <a href="#contact" onclick="openVCardOverlay(event)">Contact</a>
         </div>
     </div>
 
@@ -209,7 +217,7 @@
 
     <script>
         function openVCardOverlay(event) {
-            event.preventDefault();
+            if (event) event.preventDefault();
             const overlay = document.getElementById('overlay');
             const content = document.getElementById('overlay-content');
             const closeBtn = document.querySelector('.overlay-close');
@@ -230,7 +238,27 @@
                 const closeBtn = document.querySelector('.overlay-close');
                 overlay.classList.remove('active');
                 closeBtn.classList.remove('active');
+                window.history.replaceState(null, null, ' ');
             }
+        }
+
+        // Handle hash-based deep linking
+        window.addEventListener('hashchange', () => {
+            if (window.location.hash === '#contact') {
+                openVCardOverlay();
+            } else {
+                const overlay = document.getElementById('overlay');
+                if (overlay.classList.contains('active')) {
+                    const closeBtn = document.querySelector('.overlay-close');
+                    overlay.classList.remove('active');
+                    closeBtn.classList.remove('active');
+                }
+            }
+        });
+
+        // Check hash on page load
+        if (window.location.hash === '#contact') {
+            openVCardOverlay();
         }
     </script>
 </body>
