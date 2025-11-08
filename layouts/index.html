@@ -94,6 +94,7 @@
         }
 
         .content a {
+            font-size: x-large;
             display: block;
             margin: 0;
             padding: 0;
@@ -158,7 +159,7 @@
                 max-height: 70vh;
             }
         }
-        
+
         #overlay-content img,
         #overlay-content svg {
             max-width: 100%;
@@ -193,6 +194,25 @@
             align-items: center;
             justify-content: center;
         }
+
+        #contact {
+            padding-right: 3.7em;
+        }
+
+        #qrcode-icon {
+            display: inline-block;
+            width: 3em;
+            height: 3em;
+            vertical-align: -5em;
+            margin-left: 0.5em;
+            position: absolute;
+            margin-top: -.7em;
+        }
+
+        #qrcode-icon svg {
+            width: 100%;
+            height: 100%;
+        }
     </style>
 </head>
 
@@ -206,7 +226,7 @@
             <a href="https://github.com/iilei" target="_blank">GitHub</a>
             <a href="https://www.flickr.com/people/iilei/" target="_blank">Flickr</a>
             <a href="/pubkey-0F50EA12D4E2AB1D.asc" download>PGP Public Key</a>
-            <a href="#contact" onclick="openVCardOverlay(event)">Contact</a>
+            <a href="#contact" id="contact" onclick="openVCardOverlay(event)">Contact <span id="qrcode-icon"></span></a>
         </div>
     </div>
 
@@ -216,6 +236,14 @@
     </div>
 
     <script>
+        // Load QR code icon
+        fetch('/E1D8.svg')
+            .then(response => response.text())
+            .then(svg => {
+                document.getElementById('qrcode-icon').innerHTML = svg;
+            })
+            .catch(error => console.error('Error loading QR code icon:', error));
+
         function openVCardOverlay(event) {
             if (event) event.preventDefault();
             const overlay = document.getElementById('overlay');
@@ -233,7 +261,7 @@
         }
 
         function closeVCardOverlay(event) {
-            if (event.target.id === 'overlay' || event.target.classList.contains('overlay-close')) {
+            if (event && event.target.id === 'overlay' || (event && event.target.classList.contains('overlay-close'))) {
                 const overlay = document.getElementById('overlay');
                 const closeBtn = document.querySelector('.overlay-close');
                 overlay.classList.remove('active');
@@ -241,6 +269,19 @@
                 window.history.replaceState(null, null, ' ');
             }
         }
+
+        // Handle Escape key press
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape') {
+                const overlay = document.getElementById('overlay');
+                if (overlay.classList.contains('active')) {
+                    const closeBtn = document.querySelector('.overlay-close');
+                    overlay.classList.remove('active');
+                    closeBtn.classList.remove('active');
+                    window.history.replaceState(null, null, ' ');
+                }
+            }
+        });
 
         // Handle hash-based deep linking
         window.addEventListener('hashchange', () => {
