@@ -68,10 +68,13 @@
 
 <body>
     <div class="container">
-        <h1>{{ .Site.Title }}</h1>
-        <p>Welcome to my simple one-pager.</p>
+        <h1>{{ .Title }}</h1>
+        <div class="content">
+            {{ .Content }}
+        </div>
         <div class="links">
             <a href="https://github.com/iilei" target="_blank">GitHub</a>
+            <a href="/pubkey-0F50EA12D4E2AB1D.asc" download>PGP Public Key</a>
         </div>
     </div>
 </body>
