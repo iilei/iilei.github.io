@@ -6,5 +6,3 @@ title = 'iilei • jochen preusche'
 [params]
 description = "iilei - jochen preusche's personal website"
 author = "Jochen Preusche"
-# Add any custom variables you want to use in templates
-customCSS = ["css/custom.css"]
