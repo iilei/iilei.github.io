@@ -15,7 +15,7 @@ To enable the deployment, you need to configure GitHub Pages:
 3. Under **Source**, select **GitHub Actions**
 4. Save the changes
 
-Once enabled, the site will automatically deploy on every push to the `main` branch.
+Once enabled, the site will automatically deploy on every push to the `master` branch.
 
 ## 🛠️ Local Development
 
@@ -44,4 +44,4 @@ The generated site will be in the `public/` directory.
 
 ## 🔄 Deployment
 
-The site is automatically deployed via GitHub Actions when you push to the `main` branch. The workflow is defined in `.github/workflows/hugo.yml`.
+The site is automatically deployed via GitHub Actions when you push to the `master` branch. The workflow is defined in `.github/workflows/hugo.yml`.
