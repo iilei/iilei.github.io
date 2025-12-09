@@ -20,3 +20,4 @@ Thumbs.db
 *.tmp
 
 generate_qr_code.sh
+**/*.vcf
